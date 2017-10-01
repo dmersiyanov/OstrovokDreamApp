@@ -3,11 +3,11 @@ package com.dmersiyanov.ostrovokdreamapp.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+public class UserData {
 
     @SerializedName("bonus_info")
     @Expose
-    private BonusInfo bonusInfo;
+    private UserBonusInfo userBonusInfo;
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -42,12 +42,12 @@ public class Data {
     @Expose
     private String username;
 
-    public BonusInfo getBonusInfo() {
-        return bonusInfo;
+    public UserBonusInfo getUserBonusInfo() {
+        return userBonusInfo;
     }
 
-    public void setBonusInfo(BonusInfo bonusInfo) {
-        this.bonusInfo = bonusInfo;
+    public void setUserBonusInfo(UserBonusInfo userBonusInfo) {
+        this.userBonusInfo = userBonusInfo;
     }
 
     public String getFirstName() {
