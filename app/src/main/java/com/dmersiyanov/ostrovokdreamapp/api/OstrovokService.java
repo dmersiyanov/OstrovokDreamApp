@@ -1,12 +1,7 @@
-package com.dmersiyanov.ostrovokdreamapp;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+package com.dmersiyanov.ostrovokdreamapp.api;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -23,5 +18,5 @@ public interface OstrovokService {
             "x-mota-api-version: 2",
             "x-mota-client-name: Android"})
     @POST("v2/login")
-    Call<List<Data>> login(@Body Object request);
+    Call<ResponseAPI> login(@Body Object request);
 }

@@ -2,17 +2,10 @@ package com.dmersiyanov.ostrovokdreamapp;
 
 import android.app.Application;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import com.dmersiyanov.ostrovokdreamapp.api.OstrovokService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,10 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppOstrovok extends Application {
 
-
     private static OstrovokService ostrovokService;
     private Retrofit retrofit;
-
 
 
     @Override
@@ -43,6 +34,7 @@ public class AppOstrovok extends Application {
                 .build();
 
         ostrovokService = retrofit.create(OstrovokService.class);
+
     }
 
     public static OstrovokService getApi() {

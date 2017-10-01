@@ -1,6 +1,4 @@
-package com.dmersiyanov.ostrovokdreamapp;
-
-import java.util.Date;
+package com.dmersiyanov.ostrovokdreamapp.pojo;
 
 /**
  * Created by Mitya on 19.09.2017.

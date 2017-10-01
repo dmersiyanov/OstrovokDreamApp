@@ -1,4 +1,4 @@
-package com.dmersiyanov.ostrovokdreamapp;
+package com.dmersiyanov.ostrovokdreamapp.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

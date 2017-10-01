@@ -1,4 +1,4 @@
-package com.dmersiyanov.ostrovokdreamapp;
+package com.dmersiyanov.ostrovokdreamapp.pojo;
 
 /**
  * Created by dmersianov on 26/09/2017.
