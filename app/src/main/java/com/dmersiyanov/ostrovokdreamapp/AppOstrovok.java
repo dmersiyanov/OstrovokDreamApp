@@ -28,7 +28,7 @@ public class AppOstrovok extends Application {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://mota.p.ostrovok.ru/api/")
+                .baseUrl("http://mota.p.ostrovok.ru/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

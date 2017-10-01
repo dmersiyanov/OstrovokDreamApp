@@ -3,7 +3,6 @@ package com.dmersiyanov.ostrovokdreamapp.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BonusData {
@@ -21,7 +20,7 @@ public class BonusData {
     private Integer perPage;
     @SerializedName("bonus_log")
     @Expose
-    private List<BonusLog> bonusLog = new ArrayList<BonusLog>();
+    private List<BonusLog> bonusLog;
 
     public Integer getPage() {
         return page;
