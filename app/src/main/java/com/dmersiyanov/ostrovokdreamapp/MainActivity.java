@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity  {
 
     private static final String MODE = "common";
     private static int PAGE = 1;
-    private static int PER_PAGE = 10;
-    private static String auth_token = "Bearer 5LoSw33fkjDiJ5ft7sM3wiiS6FlA5W";
-    //  private static String auth_token;
+    private static int PER_PAGE = 20;
+    //  private static String auth_token = "Bearer 5LoSw33fkjDiJ5ft7sM3wiiS6FlA5W";
+    private static String auth_token;
     Button dreamsBtn;
 
     private List<BonusLog> bonuslist;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView dreamsRecycler = (RecyclerView) findViewById(R.id.dreamslist);
+        final RecyclerView dreamsRecycler = (RecyclerView) findViewById(R.id.dreamslist);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         dreamsRecycler.setLayoutManager(layoutManager);
         dreamsRecycler.setAdapter(dreamsAdapter);
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity  {
 
                         } catch (Exception e) {
                             Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            dreamsAdapter.addFakeDreams();
 
                         }
 

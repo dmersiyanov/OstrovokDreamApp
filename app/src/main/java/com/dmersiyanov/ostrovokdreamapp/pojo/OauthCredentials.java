@@ -16,7 +16,8 @@ public class OauthCredentials {
     private Integer expiresIn;
 
     public String getAccessToken() {
-        return accessToken;
+
+        return "Bearer " + accessToken;
     }
 
     public void setAccessToken(String accessToken) {

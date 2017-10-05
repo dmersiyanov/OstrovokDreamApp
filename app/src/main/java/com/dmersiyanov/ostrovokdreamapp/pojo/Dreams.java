@@ -4,7 +4,7 @@ package com.dmersiyanov.ostrovokdreamapp.pojo;
  * Created by Mitya on 19.09.2017.
  */
 
-public class Dreams {
+public class Dreams extends BonusLog {
     private int amount;
     private String reason;
     private String date;

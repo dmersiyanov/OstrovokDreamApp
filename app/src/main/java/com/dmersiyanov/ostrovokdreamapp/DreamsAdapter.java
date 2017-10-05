@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
+import com.dmersiyanov.ostrovokdreamapp.pojo.Dreams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,27 +21,25 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.ViewHolder
 
     private List<BonusLog> dreamsList = new ArrayList<>();
 
-    DreamsAdapter() {
-
-
-    }
 
     public void addAll(List<BonusLog> bonusLogs) {
         this.dreamsList.addAll(bonusLogs);
         notifyDataSetChanged();
     }
 
+    public void addFakeDreams() {
+        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
+        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
+        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
+        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
+        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
+        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
+        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
+        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
+        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
+        notifyDataSetChanged();
+    }
 
-//        DreamsAdapter() {
-//        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
-//        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
-//        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
-//        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
-//        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
-//        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
-//        dreamsList.add(new Dreams(400, "Скачивание приложения", "01.08.2017"));
-//        dreamsList.add(new Dreams(100, "Регистрация", "01.06.2017"));
-//        dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
 
 
     @Override
@@ -51,9 +50,16 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BonusLog bonusLog = dreamsList.get(position);
-        holder.amount.setText(String.valueOf(bonusLog.getDelta()));
-        holder.reason.setText(String.valueOf(bonusLog.getReason()));
-        holder.date.setText(String.valueOf(bonusLog.getCreatedAt()));
+        if (bonusLog instanceof Dreams) {
+            holder.amount.setText(String.valueOf(((Dreams) bonusLog).getAmount()));
+            holder.reason.setText(String.valueOf(((Dreams) bonusLog).getReason()));
+            holder.date.setText(String.valueOf(((Dreams) bonusLog).getDate()));
+        } else {
+            holder.amount.setText(String.valueOf(bonusLog.getDelta()));
+            holder.reason.setText(String.valueOf(bonusLog.getReason()));
+            holder.date.setText(String.valueOf(bonusLog.getCreatedAt()));
+        }
+
 
     }
 

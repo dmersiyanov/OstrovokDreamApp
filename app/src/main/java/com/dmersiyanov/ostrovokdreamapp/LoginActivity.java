@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Успешная авторизация " + email, Toast.LENGTH_LONG).show();
 
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                //     intent.putExtra("auth-token", response.body().getData().getOauthCredentials().getAccessToken());
+                                intent.putExtra("auth-token", response.body().getData().getOauthCredentials().getAccessToken());
                                 startActivity(intent);
                             }
 
