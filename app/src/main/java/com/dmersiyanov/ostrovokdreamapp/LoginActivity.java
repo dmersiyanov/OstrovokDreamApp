@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.putExtra("auth-token", response.body().getData().getOauthCredentials().getAccessToken());
+                                intent.putExtra("dreams-amount", response.body().getData().getUserBonusInfo().getPoints().toString());
                                 startActivity(intent);
                             }
 

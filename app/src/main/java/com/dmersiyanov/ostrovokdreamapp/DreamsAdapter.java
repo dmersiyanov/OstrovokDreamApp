@@ -60,8 +60,8 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.ViewHolder
             holder.date.setText(String.valueOf(bonusLog.getCreatedAt()));
         }
 
-
     }
+
 
     @Override
     public int getItemCount() {

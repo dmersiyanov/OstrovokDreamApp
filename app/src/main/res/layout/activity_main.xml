@@ -4,23 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
     android:background="@drawable/fragment_dream_bank_bg"
     tools:context="com.dmersiyanov.ostrovokdreamapp.MainActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/login"
-            android:text="Авторизация"
+        <TextView
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:text="У вас на счету: "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/get_dreams"
-            android:text="Баланс снов"
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:id="@+id/dreams_amount"
+            android:text="10000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingStart="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:text="снов"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -28,17 +42,19 @@
     </LinearLayout>
 
 
-    <TextView
-        android:textColor="@android:color/white"
-        android:paddingLeft="16dp"
+    <Button
+        android:id="@+id/get_dreams"
+        android:paddingBottom="10dp"
+        android:textAllCaps="false"
+        android:text="@string/dreams_history"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Баланс снов"
-        android:paddingBottom="10dp" />
+        android:layout_height="wrap_content" />
+
+
     <fragment
+        android:id="@+id/dreams"
         class="com.dmersiyanov.ostrovokdreamapp.DreamsFragment"
         android:layout_width="match_parent"
-        android:id="@+id/dreams"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_dreams">
 

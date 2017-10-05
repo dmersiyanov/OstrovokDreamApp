@@ -2,10 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="100dp"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context="com.dmersiyanov.ostrovokdreamapp.LoginActivity">
 
+    <EditText
+        android:hint="Адрес электронной почты"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:hint="Пароль"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content" />
+
+
     <Button
+        android:textSize="15sp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
         android:id="@+id/login_activ"
         android:text="Авторизация"
         android:layout_width="wrap_content"

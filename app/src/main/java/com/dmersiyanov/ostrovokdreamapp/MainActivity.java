@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseDreams;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity  {
     private static String auth_token;
     Button dreamsBtn;
 
+
+    private TextView dreamsAmount;
     private List<BonusLog> bonuslist;
     private DreamsAdapter dreamsAdapter = new DreamsAdapter();
 
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity  {
 
 
         dreamsBtn = (Button) findViewById(R.id.get_dreams);
+        dreamsAmount = (TextView) findViewById(R.id.dreams_amount);
+
+        dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
 
 
         dreamsBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity  {
                         try {
                             bonuslist = response.body().getData().getData().getBonusLog();
                             dreamsAdapter.addAll(bonuslist);
-                            Toast.makeText(MainActivity.this, "Вы получили " + bonuslist.get(0).getDelta() + " за проживание в" + bonuslist.get(0).getOrderItemData().getHotelName(), Toast.LENGTH_LONG).show();
+
 
                         } catch (Exception e) {
                             Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -72,6 +78,7 @@ public class MainActivity extends AppCompatActivity  {
                     @Override
                     public void onFailure(Call<ResponseDreams> call, Throwable t) {
                         Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + t.getMessage(), Toast.LENGTH_LONG).show();
+                        dreamsAdapter.addFakeDreams();
                     }
                 });
             }

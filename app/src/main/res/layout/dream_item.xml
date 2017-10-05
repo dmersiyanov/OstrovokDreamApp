@@ -2,34 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dreams_container"
     android:paddingTop="16dp"
-    android:paddingLeft="16dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:textColor="@android:color/white"
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="100"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:textColor="@android:color/white"
-        android:id="@+id/reason"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Регистрация"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/date"
+            android:paddingEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 окт" />
 
-    <TextView
-        android:textColor="@android:color/white"
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1.08.2017"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:paddingEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-" />
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/reason"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Регистрация" />
 
 
+        <TextView
+            android:paddingEnd="16dp"
+            android:gravity="end"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:id="@+id/amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+100" />
 
+
+    </LinearLayout>
 
 
 </LinearLayout>
