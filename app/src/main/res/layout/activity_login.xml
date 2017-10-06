@@ -9,14 +9,17 @@
     tools:context="com.dmersiyanov.ostrovokdreamapp.LoginActivity">
 
     <EditText
-        android:hint="Адрес электронной почты"
+        android:id="@+id/email"
+        android:inputType="textEmailAddress"
+        android:hint="@string/e_email_hint"
         android:textSize="16sp"
         android:layout_gravity="center"
         android:layout_width="225dp"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Пароль"
+        android:id="@+id/pass"
+        android:hint="@string/pass_hint"
         android:textSize="16sp"
         android:layout_gravity="center"
         android:layout_width="225dp"
@@ -28,7 +31,7 @@
         android:layout_gravity="center"
         android:textAllCaps="false"
         android:id="@+id/login_activ"
-        android:text="Авторизация"
+        android:text="@string/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

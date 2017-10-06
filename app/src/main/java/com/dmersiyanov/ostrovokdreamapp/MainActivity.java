@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.api.AppOstrovok;
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseDreams;
 import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
 
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity  {
     private static final String MODE = "common";
     private static int PAGE = 1;
     private static int PER_PAGE = 20;
-    //  private static String auth_token = "Bearer 5LoSw33fkjDiJ5ft7sM3wiiS6FlA5W";
     private static String auth_token;
     Button dreamsBtn;
 
@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity  {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         dreamsRecycler.setLayoutManager(layoutManager);
         dreamsRecycler.setAdapter(dreamsAdapter);
-
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
 
         Intent intent = getIntent();
         auth_token = intent.getStringExtra("auth-token");

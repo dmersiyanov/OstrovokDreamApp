@@ -8,7 +8,7 @@
 
 
     <application
-        android:name=".AppOstrovok"
+        android:name=".api.AppOstrovok"
         android:allowBackup="true"
         android:icon="@mipmap/dreams_history"
         android:label="@string/app_name"

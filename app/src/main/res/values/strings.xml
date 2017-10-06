@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Ostrovok Dreams</string>
     <string name="dreams_history">История начислений и списаний</string>
+    <string name="e_email_hint">Адрес электронной почты</string>
+    <string name="pass_hint">Пароль</string>
+    <string name="login_btn">Войти</string>
+    <string name="dreams_amount_1">У вас на счету:</string>
+    <string name="dreams_amount_2">снов</string>
 
 </resources>

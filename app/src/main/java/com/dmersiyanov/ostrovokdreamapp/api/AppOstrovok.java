@@ -1,8 +1,6 @@
-package com.dmersiyanov.ostrovokdreamapp;
+package com.dmersiyanov.ostrovokdreamapp.api;
 
 import android.app.Application;
-
-import com.dmersiyanov.ostrovokdreamapp.api.OstrovokService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
