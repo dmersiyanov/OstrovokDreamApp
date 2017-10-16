@@ -16,9 +16,10 @@ import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -55,29 +56,29 @@ public class MainActivity extends AppCompatActivity  {
         dreamsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppOstrovok.getApi().getDreams(auth_token, PAGE, MODE, PER_PAGE).enqueue(new Callback<ResponseDreams>() {
-                    @Override
-                    public void onResponse(Call<ResponseDreams> call, Response<ResponseDreams> response) {
 
-                        try {
-                            bonuslist = response.body().getData().getData().getBonusLog();
-                            dreamsAdapter.addAll(bonuslist);
+                Observable<ResponseDreams> responseDreamsObservable = AppOstrovok.getApi().getDreams(auth_token, PAGE, MODE, PER_PAGE);
+                responseDreamsObservable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<ResponseDreams>() {
+                            @Override
+                            public void onCompleted() {
 
+                            }
 
-                        } catch (Exception e) {
-                            Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            dreamsAdapter.addFakeDreams();
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                dreamsAdapter.addFakeDreams();
+                            }
 
-                        }
+                            @Override
+                            public void onNext(ResponseDreams responseDreams) {
+                                bonuslist = responseDreams.getData().getData().getBonusLog();
+                                dreamsAdapter.addAll(bonuslist);
+                            }
+                        });
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseDreams> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, "Во время загрузки снов произошла ошибка " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        dreamsAdapter.addFakeDreams();
-                    }
-                });
             }
         });
     }

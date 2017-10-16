@@ -13,9 +13,10 @@ import com.dmersiyanov.ostrovokdreamapp.api.ResponseLogin;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
 import com.dmersiyanov.ostrovokdreamapp.pojo.UserData;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,32 +43,32 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = String.valueOf(password.getText());
                 loginData = new LoginData(user_email.trim(), pass.trim());
 
-                AppOstrovok.getApi().login(loginData).enqueue(new Callback<ResponseLogin>() {
-                    @Override
-                    public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
 
-                        try {
-                            UserData userData = response.body().getData();
-                            if (response.isSuccessful()) {
-                                String email = userData.getEmail();
-                                Toast.makeText(LoginActivity.this, "Успешная авторизация " + email, Toast.LENGTH_LONG).show();
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.putExtra("auth-token", response.body().getData().getOauthCredentials().getAccessToken());
-                                intent.putExtra("dreams-amount", response.body().getData().getUserBonusInfo().getPoints().toString());
-                                startActivity(intent);
+                Observable<ResponseLogin> loginObservable = AppOstrovok.getApi().login(loginData);
+                loginObservable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<ResponseLogin>() {
+                            @Override
+                            public void onCompleted() {
+                                Toast.makeText(LoginActivity.this, "Успешная авторизация ", Toast.LENGTH_LONG).show();
                             }
 
-                        } catch (Exception e) {
-                            Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(LoginActivity.this, "Во время авторизации произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
 
-                    @Override
-                    public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "Во время авторизации произошла ошибка " + t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                            }
+
+                            @Override
+                            public void onNext(ResponseLogin responseLogin) {
+                                UserData userData = responseLogin.getData();
+
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.putExtra("auth-token", userData.getOauthCredentials().getAccessToken());
+                                intent.putExtra("dreams-amount", userData.getUserBonusInfo().getPoints().toString());
+                                startActivity(intent);
+                            }
+                        });
 
 
             }

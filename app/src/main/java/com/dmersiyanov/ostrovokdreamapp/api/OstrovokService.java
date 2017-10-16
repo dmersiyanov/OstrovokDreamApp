@@ -1,12 +1,12 @@
 package com.dmersiyanov.ostrovokdreamapp.api;
 
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by dmersianov on 26/09/2017.
@@ -21,7 +21,7 @@ public interface OstrovokService {
             "x-mota-api-version: 2",
             "x-mota-client-name: Android"})
     @POST("v2/login")
-    Call<ResponseLogin> login(@Body Object request);
+    Observable<ResponseLogin> login(@Body Object request);
 
     @Headers({"Content-Type: application/json",
             "ota-brand: ostrovok",
@@ -32,5 +32,5 @@ public interface OstrovokService {
             "x-mota-api-version: 2",
             "x-mota-client-name: Android"})
     @GET("v3/bonus_history")
-    Call<ResponseDreams> getDreams(@Header("Authorization") String accessToken, @Query("page") int page, @Query("mode") String mode, @Query("per_page") int per_page);
+    Observable<ResponseDreams> getDreams(@Header("Authorization") String accessToken, @Query("page") int page, @Query("mode") String mode, @Query("per_page") int per_page);
 }
