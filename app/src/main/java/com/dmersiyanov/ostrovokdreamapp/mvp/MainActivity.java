@@ -1,4 +1,4 @@
-package com.dmersiyanov.ostrovokdreamapp;
+package com.dmersiyanov.ostrovokdreamapp.mvp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.DreamsAdapter;
+import com.dmersiyanov.ostrovokdreamapp.R;
 import com.dmersiyanov.ostrovokdreamapp.api.AppOstrovok;
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseDreams;
 import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
