@@ -14,6 +14,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.dmersiyanov.ostrovokdreamapp.mvp.DreamsActivity.dreamsAdapter;
+
 /**
  * Created by dmersianov on 17/10/2017.
  */
@@ -26,8 +28,8 @@ public class DreamsModel {
     }
 
     private static final String MODE = "common";
-    private static int PAGE = 1;
-    private static int PER_PAGE = 20;
+    private static final int PAGE = 1;
+    private static final int PER_PAGE = 20;
 
     private List<BonusLog> bonusList;
 
@@ -44,12 +46,13 @@ public class DreamsModel {
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(context, "Во время загрузки снов произошла ошибка " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        //  dreamsAdapter.addFakeDreams();
+                        dreamsAdapter.addFakeDreams();
                     }
 
                     @Override
                     public void onNext(ResponseDreams responseDreams) {
                         bonusList = responseDreams.getData().getData().getBonusLog();
+                        dreamsAdapter.addAll(bonusList);
 
                     }
                 });

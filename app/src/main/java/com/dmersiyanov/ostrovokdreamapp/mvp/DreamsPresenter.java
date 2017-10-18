@@ -5,7 +5,7 @@ package com.dmersiyanov.ostrovokdreamapp.mvp;
  */
 
 public class DreamsPresenter {
-    private MainActivity view;
+    private DreamsActivity view;
     private final DreamsModel model;
 
 
@@ -13,7 +13,7 @@ public class DreamsPresenter {
         this.model = model;
     }
 
-    public void attachView(MainActivity usersActivity) {
+    public void attachView(DreamsActivity usersActivity) {
         view = usersActivity;
     }
 

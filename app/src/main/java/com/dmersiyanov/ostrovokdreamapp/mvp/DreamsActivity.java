@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.dmersiyanov.ostrovokdreamapp.DreamsAdapter;
 import com.dmersiyanov.ostrovokdreamapp.R;
 
-public class MainActivity extends AppCompatActivity  {
+public class DreamsActivity extends AppCompatActivity {
 
     private DreamsPresenter presenter;
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity  {
     private Button dreamsBtn;
     private TextView dreamsAmount;
 
-    private DreamsAdapter dreamsAdapter;
+    public final static DreamsAdapter dreamsAdapter = new DreamsAdapter();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity  {
 
     private void init() {
 
-        dreamsAdapter = new DreamsAdapter();
         final RecyclerView dreamsRecycler = (RecyclerView) findViewById(R.id.dreamslist);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         dreamsRecycler.setLayoutManager(layoutManager);
@@ -45,19 +44,20 @@ public class MainActivity extends AppCompatActivity  {
         auth_token = intent.getStringExtra("auth-token");
         dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
 
-
         final DreamsModel model = new DreamsModel(this);
-        presenter = new DreamsPresenter(model);
-        presenter.attachView(this);
+
 
         dreamsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.getDreams();
-                dreamsAdapter.addAll(model.getBonusList());
+                //  dreamsAdapter.addAll(model.getBonusList());
 
             }
         });
+
+        presenter = new DreamsPresenter(model);
+        presenter.attachView(this);
 
 
 

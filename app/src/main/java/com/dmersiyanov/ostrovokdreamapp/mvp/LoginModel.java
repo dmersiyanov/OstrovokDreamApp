@@ -47,7 +47,7 @@ public class LoginModel {
                     public void onNext(ResponseLogin responseLogin) {
                         UserData userData = responseLogin.getData();
 
-                        Intent intent = new Intent(context, MainActivity.class);
+                        Intent intent = new Intent(context, DreamsActivity.class);
                         intent.putExtra("auth-token", userData.getOauthCredentials().getAccessToken());
                         intent.putExtra("dreams-amount", userData.getUserBonusInfo().getPoints().toString());
                         context.startActivity(intent);
