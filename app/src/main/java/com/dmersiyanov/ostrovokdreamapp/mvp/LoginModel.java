@@ -26,6 +26,9 @@ public class LoginModel {
         this.context = context;
     }
 
+    private UserData userData;
+    private boolean isLogedin = false;
+
 
     public void login(LoginData loginData) {
         Observable<ResponseLogin> loginObservable = AppOstrovok.getApi().login(loginData);
@@ -45,15 +48,29 @@ public class LoginModel {
 
                     @Override
                     public void onNext(ResponseLogin responseLogin) {
-                        UserData userData = responseLogin.getData();
+                        userData = responseLogin.getData();
+                        //  openDreamsActivity(context, userData);
+                        isLogedin = true;
 
-                        Intent intent = new Intent(context, DreamsActivity.class);
-                        intent.putExtra("auth-token", userData.getOauthCredentials().getAccessToken());
-                        intent.putExtra("dreams-amount", userData.getUserBonusInfo().getPoints().toString());
-                        context.startActivity(intent);
+
 
                     }
                 });
+    }
+
+    public void openDreamsActivity(Context context, UserData data) {
+        Intent intent = new Intent(context, DreamsActivity.class);
+        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
+        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+        context.startActivity(intent);
+    }
+
+    public UserData getUserData() {
+        return this.userData;
+    }
+
+    public boolean isLogedin() {
+        return isLogedin;
     }
 
 }

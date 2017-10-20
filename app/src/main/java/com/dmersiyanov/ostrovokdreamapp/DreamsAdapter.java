@@ -18,9 +18,7 @@ import java.util.List;
 
 public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.ViewHolder> {
 
-
     private List<BonusLog> dreamsList = new ArrayList<>();
-
 
     public void addAll(List<BonusLog> bonusLogs) {
         this.dreamsList.addAll(bonusLogs);
@@ -39,8 +37,6 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.ViewHolder
         dreamsList.add(new Dreams(666, "Проживание в гостинице Петр 1 Москва", "01.05.2017"));
         notifyDataSetChanged();
     }
-
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -5,40 +5,45 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.dmersiyanov.ostrovokdreamapp.DreamsAdapter;
 import com.dmersiyanov.ostrovokdreamapp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class DreamsActivity extends AppCompatActivity {
 
-    private DreamsPresenter presenter;
-
-    private static String auth_token;
-    private Button dreamsBtn;
-    private TextView dreamsAmount;
-
     public final static DreamsAdapter dreamsAdapter = new DreamsAdapter();
+    private DreamsPresenter presenter;
+    private static String auth_token;
+
+    // @BindView(R.id.get_dreams) Button dreamsBtn;
+    @BindView(R.id.dreams_amount)
+    TextView dreamsAmount;
+    @BindView(R.id.dreamslist)
+    RecyclerView dreamsRecycler;
+
+    @OnClick(R.id.get_dreams)
+    void getDreams() {
+        presenter.getDreams();
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         init();
-
 
     }
 
     private void init() {
 
-        final RecyclerView dreamsRecycler = (RecyclerView) findViewById(R.id.dreamslist);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         dreamsRecycler.setLayoutManager(layoutManager);
         dreamsRecycler.setAdapter(dreamsAdapter);
-
-        dreamsBtn = (Button) findViewById(R.id.get_dreams);
-        dreamsAmount = (TextView) findViewById(R.id.dreams_amount);
 
         Intent intent = getIntent();
         auth_token = intent.getStringExtra("auth-token");
@@ -46,20 +51,8 @@ public class DreamsActivity extends AppCompatActivity {
 
         final DreamsModel model = new DreamsModel(this);
 
-
-        dreamsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.getDreams();
-                //  dreamsAdapter.addAll(model.getBonusList());
-
-            }
-        });
-
         presenter = new DreamsPresenter(model);
         presenter.attachView(this);
-
-
 
     }
 
@@ -67,11 +60,9 @@ public class DreamsActivity extends AppCompatActivity {
         return auth_token;
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
     }
-
 }
