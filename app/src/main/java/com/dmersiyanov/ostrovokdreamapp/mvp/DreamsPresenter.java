@@ -27,5 +27,9 @@ public class DreamsPresenter {
 
     }
 
+    public DreamsActivity getView() {
+        return view;
+    }
+
 
 }

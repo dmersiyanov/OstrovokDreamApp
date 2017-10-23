@@ -3,7 +3,6 @@ package com.dmersiyanov.ostrovokdreamapp.mvp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.dmersiyanov.ostrovokdreamapp.R;
@@ -16,8 +15,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.login_btn)
-    Button loginBtn;
+    //    @BindView(R.id.login_btn)
+//    Button loginBtn;
     @BindView(R.id.email)
     EditText email;
     @BindView(R.id.pass)

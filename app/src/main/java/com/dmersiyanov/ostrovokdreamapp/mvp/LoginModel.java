@@ -1,9 +1,9 @@
 package com.dmersiyanov.ostrovokdreamapp.mvp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 import com.dmersiyanov.ostrovokdreamapp.api.AppOstrovok;
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseLogin;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
@@ -22,12 +22,15 @@ public class LoginModel {
 
     private Context context;
 
-    public LoginModel(Context context) {
+    SharedPrefsHelper mSharedPrefsHelper;
+
+    public LoginModel(Context context, SharedPrefsHelper sharedPrefsHelper) {
         this.context = context;
+        mSharedPrefsHelper = sharedPrefsHelper;
     }
 
     private UserData userData;
-    private boolean isLogedin = false;
+    // private boolean isLogedin = false;
 
 
     public void login(LoginData loginData) {
@@ -50,7 +53,8 @@ public class LoginModel {
                     public void onNext(ResponseLogin responseLogin) {
                         userData = responseLogin.getData();
                         //  openDreamsActivity(context, userData);
-                        isLogedin = true;
+//                        isLogedin = true;
+                        setLoggedIn();
 
 
 
@@ -58,19 +62,49 @@ public class LoginModel {
                 });
     }
 
-    public void openDreamsActivity(Context context, UserData data) {
-        Intent intent = new Intent(context, DreamsActivity.class);
-        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
-        context.startActivity(intent);
-    }
+//    public void openDreamsActivity(Context context, UserData data) {
+//        Intent intent = new Intent(context, DreamsActivity.class);
+//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
+//        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+//        context.startActivity(intent);
+//    }
 
     public UserData getUserData() {
         return this.userData;
     }
 
-    public boolean isLogedin() {
-        return isLogedin;
+//    public boolean isLogedin() {
+//        return isLogedin;
+//    }
+
+
+    public void clear() {
+        mSharedPrefsHelper.clear();
+    }
+
+    public void saveEmailId(String email) {
+        mSharedPrefsHelper.putEmail(email);
+    }
+
+    public void saveAuthToken(String token) {
+        mSharedPrefsHelper.putAuthToken(token);
+    }
+
+    public String getEmailId() {
+        return mSharedPrefsHelper.getEmail();
+    }
+
+    public String getAuthToken() {
+        return mSharedPrefsHelper.getAuthToken();
+    }
+
+
+    public void setLoggedIn() {
+        mSharedPrefsHelper.setLoggedInMode(true);
+    }
+
+    public Boolean getLoggedInMode() {
+        return mSharedPrefsHelper.getLoggedInMode();
     }
 
 }
