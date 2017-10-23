@@ -28,10 +28,15 @@ public class LoginPresenter {
         LoginData loginData = view.getLoginData();
         model.login(loginData);
 
-        if (model.isLogedin()) {
-            view.openDreamsActivity(model.getUserData());
-        }
+        //  if (model.getLoggedInMode()) {
+        // view.openDreamsActivity(model.getUserData());
+        //}
 
+
+    }
+
+    public LoginActivity getView() {
+        return view;
     }
 
 

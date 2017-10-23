@@ -1,6 +1,7 @@
 package com.dmersiyanov.ostrovokdreamapp.mvp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
@@ -21,8 +22,7 @@ import rx.schedulers.Schedulers;
 public class LoginModel {
 
     private Context context;
-
-    SharedPrefsHelper mSharedPrefsHelper;
+    private SharedPrefsHelper mSharedPrefsHelper;
 
     public LoginModel(Context context, SharedPrefsHelper sharedPrefsHelper) {
         this.context = context;
@@ -30,7 +30,6 @@ public class LoginModel {
     }
 
     private UserData userData;
-    // private boolean isLogedin = false;
 
 
     public void login(LoginData loginData) {
@@ -52,7 +51,7 @@ public class LoginModel {
                     @Override
                     public void onNext(ResponseLogin responseLogin) {
                         userData = responseLogin.getData();
-                        //  openDreamsActivity(context, userData);
+                        openDreamsActivity(context, userData);
 //                        isLogedin = true;
                         setLoggedIn();
 
@@ -62,14 +61,15 @@ public class LoginModel {
                 });
     }
 
-//    public void openDreamsActivity(Context context, UserData data) {
-//        Intent intent = new Intent(context, DreamsActivity.class);
-//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-//        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
-//        context.startActivity(intent);
-//    }
+    public void openDreamsActivity(Context context, UserData data) {
+        Intent intent = new Intent(context, DreamsActivity.class);
+        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
+        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+        context.startActivity(intent);
+    }
 
     public UserData getUserData() {
+
         return this.userData;
     }
 

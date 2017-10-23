@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import com.dmersiyanov.ostrovokdreamapp.R;
+import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
 import com.dmersiyanov.ostrovokdreamapp.pojo.UserData;
 
@@ -42,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init() {
 
-        final LoginModel loginModel = new LoginModel(this);
+        SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
+
+        final LoginModel loginModel = new LoginModel(this, prefsHelper);
         presenter = new LoginPresenter(loginModel);
         presenter.attachView(this);
 
