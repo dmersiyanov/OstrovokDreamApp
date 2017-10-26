@@ -1,5 +1,6 @@
 package com.dmersiyanov.ostrovokdreamapp.mvp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -83,6 +84,11 @@ public class DreamsActivity extends AppCompatActivity {
 
     public String getToken() {
         return auth_token;
+    }
+
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, DreamsActivity.class);
+        return intent;
     }
 
     @Override

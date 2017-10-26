@@ -1,5 +1,6 @@
 package com.dmersiyanov.ostrovokdreamapp.mvp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,12 +56,21 @@ public class LoginActivity extends AppCompatActivity {
         return new LoginData(user_email.trim(), pass.trim());
     }
 
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        return intent;
+    }
+
+
 
     public void openDreamsActivity(UserData data) {
-        Intent intent = new Intent(this, DreamsActivity.class);
-        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
-        this.startActivity(intent);
+//        Intent intent = new Intent(this, DreamsActivity.class);
+//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
+//        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+//        this.startActivity(intent);
+
+        Intent intent = DreamsActivity.getStartIntent(this);
+        startActivity(intent);
 
     }
 

@@ -56,6 +56,7 @@ public class LoginModel {
                     public void onNext(ResponseLogin responseLogin) {
                         userData = responseLogin.getData();
                         openDreamsActivity(context, userData);
+
                         setLoggedIn();
 
 
