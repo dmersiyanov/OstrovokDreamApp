@@ -12,8 +12,10 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 import static com.dmersiyanov.ostrovokdreamapp.mvp.DreamsActivity.dreamsAdapter;
 
@@ -32,6 +34,8 @@ public class DreamsModel {
 
     }
 
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+
     private static final String MODE = "common";
     private static final int PAGE = 1;
     private static final int PER_PAGE = 20;
@@ -40,7 +44,9 @@ public class DreamsModel {
 
     public void loadDreams(String auth_token) {
         Observable<ResponseDreams> responseDreamsObservable = AppOstrovok.getApi().getDreams(auth_token, PAGE, MODE, PER_PAGE);
-        responseDreamsObservable.subscribeOn(Schedulers.io())
+
+
+        Subscription dreamsSubscription = responseDreamsObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseDreams>() {
                     @Override
@@ -61,7 +67,10 @@ public class DreamsModel {
 
                     }
                 });
+
+        compositeSubscription.add(dreamsSubscription);
     }
+
 
     public List<BonusLog> getBonusList() {
         return bonusList;
@@ -77,6 +86,10 @@ public class DreamsModel {
 
     public void logOut() {
         mSharedPrefsHelper.setLoggedInMode(false);
+    }
+
+    public void unsubcribe() {
+        compositeSubscription.unsubscribe();
     }
 
 

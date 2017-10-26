@@ -12,8 +12,10 @@ import com.dmersiyanov.ostrovokdreamapp.pojo.UserData;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by dmersianov on 17/10/2017.
@@ -23,6 +25,7 @@ public class LoginModel {
 
     private Context context;
     private SharedPrefsHelper mSharedPrefsHelper;
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     public LoginModel(Context context, SharedPrefsHelper sharedPrefsHelper) {
         this.context = context;
@@ -34,7 +37,8 @@ public class LoginModel {
 
     public void login(LoginData loginData) {
         Observable<ResponseLogin> loginObservable = AppOstrovok.getApi().login(loginData);
-        loginObservable.subscribeOn(Schedulers.io())
+
+        Subscription loginSubscription = loginObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseLogin>() {
                     @Override
@@ -58,13 +62,16 @@ public class LoginModel {
 
                     }
                 });
+
+        compositeSubscription.add(loginSubscription);
     }
 
     public void openDreamsActivity(Context context, UserData data) {
         Intent intent = new Intent(context, DreamsActivity.class);
 //        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
         saveAuthToken(data.getOauthCredentials().getAccessToken());
+
+        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
         context.startActivity(intent);
     }
 
@@ -72,11 +79,6 @@ public class LoginModel {
 
         return this.userData;
     }
-
-//    public boolean isLogedin() {
-//        return isLogedin;
-//    }
-
 
 
     public void saveEmailId(String email) {
@@ -101,6 +103,10 @@ public class LoginModel {
 
     public Boolean getLoggedInMode() {
         return mSharedPrefsHelper.getLoggedInMode();
+    }
+
+    public void unsubcribe() {
+        compositeSubscription.unsubscribe();
     }
 
 }

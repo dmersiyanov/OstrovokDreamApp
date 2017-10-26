@@ -16,8 +16,6 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //    @BindView(R.id.login_btn)
-//    Button loginBtn;
     @BindView(R.id.email)
     EditText email;
     @BindView(R.id.pass)
@@ -70,5 +68,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+        presenter.destroy();
     }
 }

@@ -21,6 +21,10 @@ public class DreamsPresenter {
         view = null;
     }
 
+    public void destroy() {
+        model.unsubcribe();
+    }
+
 
     public void getDreams() {
         model.loadDreams(view.getToken());

@@ -23,14 +23,14 @@ public class LoginPresenter {
         view = null;
     }
 
+    public void destroy() {
+        model.unsubcribe();
+    }
+
 
     public void login() {
         LoginData loginData = view.getLoginData();
         model.login(loginData);
-
-        //  if (model.getLoggedInMode()) {
-        // view.openDreamsActivity(model.getUserData());
-        //}
 
 
     }

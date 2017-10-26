@@ -89,5 +89,6 @@ public class DreamsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+        presenter.destroy();
     }
 }
