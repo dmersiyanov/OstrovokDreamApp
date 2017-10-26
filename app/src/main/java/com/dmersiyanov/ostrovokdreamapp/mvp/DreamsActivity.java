@@ -54,7 +54,6 @@ public class DreamsActivity extends AppCompatActivity {
 
         presenter = new DreamsPresenter(model);
         Intent intent = getIntent();
-        // auth_token = intent.getStringExtra("auth-token");
         auth_token = model.getAuthToken();
         dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
 
