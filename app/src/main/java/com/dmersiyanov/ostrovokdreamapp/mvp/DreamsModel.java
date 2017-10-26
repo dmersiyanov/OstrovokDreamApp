@@ -3,6 +3,7 @@ package com.dmersiyanov.ostrovokdreamapp.mvp;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 import com.dmersiyanov.ostrovokdreamapp.api.AppOstrovok;
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseDreams;
 import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
@@ -22,9 +23,13 @@ import static com.dmersiyanov.ostrovokdreamapp.mvp.DreamsActivity.dreamsAdapter;
 
 public class DreamsModel {
     private Context context;
+    private SharedPrefsHelper mSharedPrefsHelper;
 
-    public DreamsModel(Context context) {
+
+    public DreamsModel(Context context, SharedPrefsHelper sharedPrefsHelper) {
         this.context = context;
+        this.mSharedPrefsHelper = sharedPrefsHelper;
+
     }
 
     private static final String MODE = "common";
@@ -61,6 +66,19 @@ public class DreamsModel {
     public List<BonusLog> getBonusList() {
         return bonusList;
     }
+
+    public String getAuthToken() {
+        return mSharedPrefsHelper.getAuthToken();
+    }
+
+    public void clear() {
+        mSharedPrefsHelper.clear();
+    }
+
+    public void logOut() {
+        mSharedPrefsHelper.setLoggedInMode(false);
+    }
+
 
 
 

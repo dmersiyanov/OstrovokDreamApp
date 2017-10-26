@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dmersiyanov.ostrovokdreamapp.DreamsAdapter;
 import com.dmersiyanov.ostrovokdreamapp.R;
+import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,9 +22,9 @@ public class DreamsActivity extends AppCompatActivity {
 
     public final static DreamsAdapter dreamsAdapter = new DreamsAdapter();
     private DreamsPresenter presenter;
+    private DreamsModel model;
     private static String auth_token;
 
-    // @BindView(R.id.get_dreams) Button dreamsBtn;
     @BindView(R.id.dreams_amount)
     TextView dreamsAmount;
     @BindView(R.id.dreamslist)
@@ -45,15 +49,37 @@ public class DreamsActivity extends AppCompatActivity {
         dreamsRecycler.setLayoutManager(layoutManager);
         dreamsRecycler.setAdapter(dreamsAdapter);
 
-        Intent intent = getIntent();
-        auth_token = intent.getStringExtra("auth-token");
-        dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
-
-        final DreamsModel model = new DreamsModel(this);
+        SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
+        model = new DreamsModel(this, prefsHelper);
 
         presenter = new DreamsPresenter(model);
+        Intent intent = getIntent();
+        // auth_token = intent.getStringExtra("auth-token");
+        auth_token = model.getAuthToken();
+        dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
+
         presenter.attachView(this);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Выйти");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String title = item.getTitle().toString();
+        if (title.equals("Выйти")) {
+            Toast.makeText(this, "Выйти", Toast.LENGTH_LONG).show();
+            this.startActivity(new Intent(this, LoginActivity.class));
+            model.logOut();
+            model.clear();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public String getToken() {

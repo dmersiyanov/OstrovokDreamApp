@@ -52,7 +52,6 @@ public class LoginModel {
                     public void onNext(ResponseLogin responseLogin) {
                         userData = responseLogin.getData();
                         openDreamsActivity(context, userData);
-//                        isLogedin = true;
                         setLoggedIn();
 
 
@@ -63,8 +62,9 @@ public class LoginModel {
 
     public void openDreamsActivity(Context context, UserData data) {
         Intent intent = new Intent(context, DreamsActivity.class);
-        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
+//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
         intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+        saveAuthToken(data.getOauthCredentials().getAccessToken());
         context.startActivity(intent);
     }
 
@@ -78,9 +78,6 @@ public class LoginModel {
 //    }
 
 
-    public void clear() {
-        mSharedPrefsHelper.clear();
-    }
 
     public void saveEmailId(String email) {
         mSharedPrefsHelper.putEmail(email);
@@ -94,14 +91,13 @@ public class LoginModel {
         return mSharedPrefsHelper.getEmail();
     }
 
-    public String getAuthToken() {
-        return mSharedPrefsHelper.getAuthToken();
-    }
 
 
     public void setLoggedIn() {
+
         mSharedPrefsHelper.setLoggedInMode(true);
     }
+
 
     public Boolean getLoggedInMode() {
         return mSharedPrefsHelper.getLoggedInMode();
