@@ -51,7 +51,9 @@ public class DreamsModel {
                 .subscribe(new Observer<ResponseDreams>() {
                     @Override
                     public void onCompleted() {
-
+                        if (bonusList != null) {
+                            dreamsAdapter.notifyDataSetChanged();
+                        }
                     }
 
                     @Override
@@ -64,6 +66,9 @@ public class DreamsModel {
                     public void onNext(ResponseDreams responseDreams) {
                         bonusList = responseDreams.getData().getData().getBonusLog();
                         dreamsAdapter.addAll(bonusList);
+                        if (bonusList != null) {
+                            dreamsAdapter.notifyDataSetChanged();
+                        }
 
                     }
                 });

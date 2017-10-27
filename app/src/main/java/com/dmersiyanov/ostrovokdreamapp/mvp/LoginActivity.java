@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dmersiyanov.ostrovokdreamapp.R;
 import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
 
-        final LoginModel loginModel = new LoginModel(this, prefsHelper);
+        final LoginModel loginModel = new LoginModel(prefsHelper);
         presenter = new LoginPresenter(loginModel);
         presenter.attachView(this);
 
@@ -64,15 +65,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void openDreamsActivity(UserData data) {
-//        Intent intent = new Intent(this, DreamsActivity.class);
-//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-//        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
-//        this.startActivity(intent);
-
         Intent intent = DreamsActivity.getStartIntent(this);
+        presenter.saveToken(data.getOauthCredentials().getAccessToken());
+        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
         startActivity(intent);
 
     }
+
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     protected void onDestroy() {
