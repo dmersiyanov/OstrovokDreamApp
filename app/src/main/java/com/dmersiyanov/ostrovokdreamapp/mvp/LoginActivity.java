@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.CommonUtils;
 import com.dmersiyanov.ostrovokdreamapp.R;
 import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
@@ -25,7 +26,20 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_btn)
     public void onLoginButtonClick() {
-        presenter.login();
+        String user_email = String.valueOf(email.getText());
+        String pass = String.valueOf(password.getText());
+
+        if (!CommonUtils.isEmailValid(user_email)) {
+            showToast("Введите правильный e-mail");
+            return;
+        }
+
+        if (pass == null || pass.isEmpty()) {
+            showToast("Введите пароль");
+            return;
+        }
+
+        presenter.login(new LoginData(user_email.trim(), pass.trim()));
 
     }
 
@@ -51,11 +65,23 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public LoginData getLoginData() {
-        String user_email = String.valueOf(email.getText());
-        String pass = String.valueOf(password.getText());
-        return new LoginData(user_email.trim(), pass.trim());
-    }
+//    public LoginData getLoginData() {
+//        String user_email = String.valueOf(email.getText());
+//        String pass = String.valueOf(password.getText());
+//
+//        if (!CommonUtils.isEmailValid(user_email)) {
+//            showToast("Введите правильный e-mail");
+//            return;
+//        }
+//
+//        if (pass == null || pass.isEmpty()) {
+//            showToast("Введите пароль");
+//            return;
+//        }
+//
+//
+//        return new LoginData(user_email.trim(), pass.trim());
+//    }
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -67,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     public void openDreamsActivity(UserData data) {
         Intent intent = DreamsActivity.getStartIntent(this);
         presenter.saveToken(data.getOauthCredentials().getAccessToken());
-        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
+        presenter.saveDreams(data.getUserBonusInfo().getPoints().toString());
         startActivity(intent);
 
     }

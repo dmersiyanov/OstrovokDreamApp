@@ -1,6 +1,7 @@
 package com.dmersiyanov.ostrovokdreamapp.mvp;
 
 import com.dmersiyanov.ostrovokdreamapp.api.ResponseLogin;
+import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
 import com.dmersiyanov.ostrovokdreamapp.pojo.UserData;
 
 import rx.Observer;
@@ -37,8 +38,8 @@ public class LoginPresenter {
     }
 
 
-    public void login() {
-        model.login(view.getLoginData());
+    public void login(LoginData loginData) {
+        model.login(loginData);
 
         Subscription loginSubscription = model.loginObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,7 +53,7 @@ public class LoginPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showToast("Во время авторизации произошла ошибка" + e.getMessage());
+                        view.showToast("Во время авторизации произошла ошибка: " + e.getMessage());
 
                     }
 
@@ -69,12 +70,12 @@ public class LoginPresenter {
 
     }
 
-    public LoginActivity getView() {
-        return view;
+    public void saveToken(String token) {
+        model.saveAuthToken(token);
     }
 
-    public void saveToken(String token) {
-        model.getPrefHelper().putAuthToken(token);
+    public void saveDreams(String dreams) {
+        model.saveDreams(dreams);
     }
 
 

@@ -37,6 +37,10 @@ public class LoginModel {
         mSharedPrefsHelper.putAuthToken(token);
     }
 
+    public void saveDreams(String dreams) {
+        mSharedPrefsHelper.putDreams(dreams);
+    }
+
     public String getEmailId() {
         return mSharedPrefsHelper.getEmail();
     }

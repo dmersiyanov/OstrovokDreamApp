@@ -28,7 +28,6 @@ public interface OstrovokService {
             "ota-brand: ostrovok",
             "accept: application/json",
             "Accept-Language: ru",
-            "host: mota.p.ostrovok.ru",
             "User-Agent: Ostrovok/3.6.5-DEV-DEBUG (android; FRD-L09; Android 7.0; Scale/2.00) ASID eafaafe12402f569 AID e274a392-8f96-40f5-aad6-aec644af12dd",
             "x-mota-api-version: 2",
             "x-mota-client-name: Android"})
