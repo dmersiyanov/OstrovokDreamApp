@@ -65,24 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-//    public LoginData getLoginData() {
-//        String user_email = String.valueOf(email.getText());
-//        String pass = String.valueOf(password.getText());
-//
-//        if (!CommonUtils.isEmailValid(user_email)) {
-//            showToast("Введите правильный e-mail");
-//            return;
-//        }
-//
-//        if (pass == null || pass.isEmpty()) {
-//            showToast("Введите пароль");
-//            return;
-//        }
-//
-//
-//        return new LoginData(user_email.trim(), pass.trim());
-//    }
-
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         return intent;
