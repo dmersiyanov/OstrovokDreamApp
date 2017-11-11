@@ -98,7 +98,6 @@ public class DreamsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
         presenter.destroy();
     }
 

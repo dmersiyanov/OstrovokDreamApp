@@ -21,8 +21,8 @@ public class DreamsModel {
 
     }
 
-    public void loadDreams(String auth_token) {
-        responseDreamsObservable = AppOstrovok.getApi().getDreams(auth_token, Constants.getPAGE(), Constants.getMODE(), Constants.getPerPage());
+    public Observable<ResponseDreams> loadDreams(String auth_token) {
+        return responseDreamsObservable = AppOstrovok.getApi().getDreams(auth_token, Constants.getPAGE(), Constants.getMODE(), Constants.getPerPage());
     }
 
 

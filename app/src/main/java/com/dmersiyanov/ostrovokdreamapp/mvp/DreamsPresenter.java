@@ -6,8 +6,8 @@ import com.dmersiyanov.ostrovokdreamapp.pojo.BonusLog;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
 import rx.Observer;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -38,14 +38,15 @@ public class DreamsPresenter {
     }
 
     public void destroy() {
+        view = null;
         compositeSubscription.unsubscribe();
     }
 
     public void getDreams() {
-        model.loadDreams(view.getToken());
+        Observable<ResponseDreams> responseDreamsObservable = model.loadDreams(view.getToken());
 
 
-        Subscription dreamsSubscription = model.responseDreamsObservable.subscribeOn(Schedulers.io())
+        compositeSubscription.add(responseDreamsObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseDreams>() {
                     @Override
@@ -70,9 +71,7 @@ public class DreamsPresenter {
 //                        }
 
                     }
-                });
-
-        compositeSubscription.add(dreamsSubscription);
+                }));
 
     }
 
