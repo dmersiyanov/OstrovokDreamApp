@@ -20,8 +20,8 @@ public class LoginModel {
         mSharedPrefsHelper = sharedPrefsHelper;
     }
 
-    public void login(LoginData loginData) {
-        loginObservable = AppOstrovok.getApi().login(loginData);
+    public Observable<ResponseLogin> login(LoginData loginData) {
+        return loginObservable = AppOstrovok.getApi().login(loginData);
     }
 
     public SharedPrefsHelper getPrefHelper() {

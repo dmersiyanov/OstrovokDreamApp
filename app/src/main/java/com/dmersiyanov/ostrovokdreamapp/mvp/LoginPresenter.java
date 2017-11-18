@@ -4,6 +4,7 @@ import com.dmersiyanov.ostrovokdreamapp.api.ResponseLogin;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
 import com.dmersiyanov.ostrovokdreamapp.pojo.UserData;
 
+import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,9 +40,9 @@ public class LoginPresenter {
 
 
     public void login(LoginData loginData) {
-        model.login(loginData);
+        Observable<ResponseLogin> loginObservable = model.login(loginData);
 
-        Subscription loginSubscription = model.loginObservable.subscribeOn(Schedulers.io())
+        Subscription loginSubscription = loginObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseLogin>() {
                     @Override
