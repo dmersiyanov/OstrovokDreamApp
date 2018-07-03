@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.dmersiyanov.ostrovokdreamapp.R;
@@ -52,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public LoginData getLoginData() {
         String user_email = String.valueOf(email.getText());
+        Log.i("getLoginData", user_email);
         String pass = String.valueOf(password.getText());
+        Log.i("getLoginData", pass);
         return new LoginData(user_email.trim(), pass.trim());
     }
 

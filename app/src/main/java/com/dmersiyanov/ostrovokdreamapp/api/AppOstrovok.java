@@ -23,11 +23,11 @@ public class AppOstrovok extends Application {
         super.onCreate();
 
         final OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://mota.p.ostrovok.ru/api/")
+                .baseUrl("http://mota.ostrovok.ru/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
