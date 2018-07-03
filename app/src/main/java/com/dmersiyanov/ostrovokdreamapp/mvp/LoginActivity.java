@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.widget.Toast;
 
+import com.dmersiyanov.ostrovokdreamapp.CommonUtils;
 import com.dmersiyanov.ostrovokdreamapp.R;
 import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
 import com.dmersiyanov.ostrovokdreamapp.pojo.LoginData;
@@ -25,7 +28,20 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_btn)
     public void onLoginButtonClick() {
-        presenter.login();
+        String user_email = String.valueOf(email.getText());
+        String pass = String.valueOf(password.getText());
+
+        if (!CommonUtils.isEmailValid(user_email)) {
+            showToast("Введите правильный e-mail");
+            return;
+        }
+
+        if (pass == null || pass.isEmpty()) {
+            showToast("Введите пароль");
+            return;
+        }
+
+        presenter.login(new LoginData(user_email.trim(), pass.trim()));
 
     }
 
@@ -45,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
 
-        final LoginModel loginModel = new LoginModel(this, prefsHelper);
+        final LoginModel loginModel = new LoginModel(prefsHelper);
         presenter = new LoginPresenter(loginModel);
         presenter.attachView(this);
 
@@ -53,9 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public LoginData getLoginData() {
         String user_email = String.valueOf(email.getText());
-        Log.i("getLoginData", user_email);
         String pass = String.valueOf(password.getText());
-        Log.i("getLoginData", pass);
         return new LoginData(user_email.trim(), pass.trim());
     }
 
@@ -67,15 +81,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void openDreamsActivity(UserData data) {
-//        Intent intent = new Intent(this, DreamsActivity.class);
-//        intent.putExtra("auth-token", data.getOauthCredentials().getAccessToken());
-//        intent.putExtra("dreams-amount", data.getUserBonusInfo().getPoints().toString());
-//        this.startActivity(intent);
-
         Intent intent = DreamsActivity.getStartIntent(this);
+        presenter.saveToken(data.getOauthCredentials().getAccessToken());
+        presenter.saveDreams(data.getUserBonusInfo().getPoints().toString());
         startActivity(intent);
 
     }
+
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     protected void onDestroy() {

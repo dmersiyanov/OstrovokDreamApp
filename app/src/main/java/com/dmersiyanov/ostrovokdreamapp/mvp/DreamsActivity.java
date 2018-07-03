@@ -51,12 +51,12 @@ public class DreamsActivity extends AppCompatActivity {
         dreamsRecycler.setAdapter(dreamsAdapter);
 
         SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
-        model = new DreamsModel(this, prefsHelper);
+        model = new DreamsModel(prefsHelper);
 
         presenter = new DreamsPresenter(model);
-        Intent intent = getIntent();
+
         auth_token = model.getAuthToken();
-        dreamsAmount.setText(intent.getStringExtra("dreams-amount"));
+        dreamsAmount.setText(model.getDreams());
 
         presenter.attachView(this);
 
@@ -72,8 +72,8 @@ public class DreamsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         String title = item.getTitle().toString();
         if (title.equals("Выйти")) {
-            Toast.makeText(this, "Выйти", Toast.LENGTH_LONG).show();
-            this.startActivity(new Intent(this, LoginActivity.class));
+            Toast.makeText(this, "Успешно", Toast.LENGTH_LONG).show();
+            this.startActivity(LoginActivity.getStartIntent(this));
             model.logOut();
             model.clear();
             return true;
@@ -91,10 +91,15 @@ public class DreamsActivity extends AppCompatActivity {
         return intent;
     }
 
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
         presenter.destroy();
     }
+
+
 }
