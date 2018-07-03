@@ -3,12 +3,12 @@ package com.dmersiyanov.ostrovokdreamapp.mvp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.dmersiyanov.ostrovokdreamapp.CommonUtils;
 import com.dmersiyanov.ostrovokdreamapp.R;
 import com.dmersiyanov.ostrovokdreamapp.SharedPrefsHelper;
@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MvpAppCompatActivity implements LoginView{
 
     @BindView(R.id.email)
     EditText email;
@@ -45,7 +45,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private LoginPresenter presenter;
+    @InjectPresenter
+    LoginPresenter presenter;
+
+    @ProvidePresenter
+    LoginPresenter provideLoginPresenter() {
+        SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
+        final LoginRepo loginRepo = new LoginRepo(prefsHelper);
+        return new LoginPresenter(loginRepo);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +65,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     private void init() {
 
-        SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
-
-        final LoginModel loginModel = new LoginModel(prefsHelper);
-        presenter = new LoginPresenter(loginModel);
-        presenter.attachView(this);
+//        SharedPrefsHelper prefsHelper = new SharedPrefsHelper(this);
+//
+//        final LoginRepo loginRepo = new LoginRepo(prefsHelper);
+//        presenter = new LoginPresenter(loginRepo);
+//        presenter.attachView(this);
 
     }
 
@@ -79,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
     public void openDreamsActivity(UserData data) {
         Intent intent = DreamsActivity.getStartIntent(this);
         presenter.saveToken(data.getOauthCredentials().getAccessToken());
@@ -88,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
@@ -96,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+//        presenter.detachView();
         presenter.destroy();
     }
 }

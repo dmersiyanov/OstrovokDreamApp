@@ -11,12 +11,12 @@ import rx.Observable;
  * Created by dmersianov on 17/10/2017.
  */
 
-public class LoginModel {
+public class LoginRepo {
 
     public Observable<ResponseLogin> loginObservable;
     private SharedPrefsHelper mSharedPrefsHelper;
 
-    public LoginModel(SharedPrefsHelper sharedPrefsHelper) {
+    public LoginRepo(SharedPrefsHelper sharedPrefsHelper) {
         mSharedPrefsHelper = sharedPrefsHelper;
     }
 
